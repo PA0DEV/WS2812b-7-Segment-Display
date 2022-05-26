@@ -84,10 +84,12 @@ There are two different ways of showing your data on the Displays:
 
 
 
-[^1]: List of available Symbols: 
+[^1]:
+    List of available Symbols: 
   - Digits 0 - 9
   - Degree Symbol (°)
   - Letters `C, F, E, U, P`
   - Minus ( - )
 
-[^2]: `setDoubleSegments()` only accepts values from 0 up to 99
+[^2]: 
+    `setDoubleSegments()` only accepts values from 0 up to 99
