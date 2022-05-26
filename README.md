@@ -52,7 +52,7 @@ There are two different ways of showing your data on the Displays:
     ```
     `num [int]` is the index of the digit you wanna set
 
-    `value [int/char]` the value you want the display to be set to. [^1]
+    `value [int/char]` the value you want the display to be set to.
 
     `color [tuple (R, G, B)]` the color you want the value to be displayed (Default: 0, 0, 100 --> Blue) 
 
@@ -65,7 +65,7 @@ There are two different ways of showing your data on the Displays:
     ```
     `num [int]` is the index of the digit you wanna set
 
-    `value [int/char]` the value you want the display to be set to. [^2]
+    `value [int/char]` the value you want the display to be set to. [^1]
 
     `color [tuple (R, G, B)]` the color you want the value to be displayed (Default: 0, 0, 100 --> Blue) 
 
@@ -82,15 +82,12 @@ There are two different ways of showing your data on the Displays:
 
 ---
 
+List of available Symbols: 
 
-
-[^1]:
-    List of available Symbols: 
-    
-  - Digits 0 - 9
-  - Degree Symbol (°)
+  - Digits `0 - 9`
+  - Degree Symbol `°`
   - Letters `C, F, E, U, P`
-  - Minus ( - )
+  - Minus `-`
 
-[^2]: 
+[^1]: 
     `setDoubleSegments()` only accepts values from 0 up to 99
