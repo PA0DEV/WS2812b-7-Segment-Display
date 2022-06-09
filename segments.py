@@ -76,7 +76,7 @@ segmentNumbers = {
     "-": [6]
 }
 
-class Segments:
+class Segments(object):
     def __init__(self, pin, addrOfset=0, ledPerSegment=3, ledPerDot=1, numDisplay=4):
         """
         7-Segment Display
@@ -88,40 +88,35 @@ class Segments:
             :param numDisplay: number of 7-Segment display in the display
             :return: returns nothing
         """       
-        global LedPerSegment
-        LedPerSegment = ledPerSegment
+        self.LedPerSegment = ledPerSegment
         # calc the total number of LEDs
-        ledCnt = (numDisplay*ledPerSegment*7)+((numDisplay-1)//2*ledPerDot)
+        self.ledCnt = (numDisplay*ledPerSegment*7)+((numDisplay-1)//2*ledPerDot)
         
         # calc starting addr for each segment
-        global segStart
-        segStart = []
+        self.segStart = []
         for i in range(numDisplay):
-            segStart.append(addrOfset + i * (7*ledPerSegment) + (2*(i//2)*ledPerDot))
+            self.segStart.append(addrOfset + i * (7*ledPerSegment) + (2*(i//2)*ledPerDot))
 
         # clac segment number addresses
-        global numAddr
-        numAddr = {}
+        self.numAddr = {}
         for name in segmentNumbers:
             listAddr = []
             for addr in segmentNumbers[name]:
                 for i in range(ledPerSegment): 
                     listAddr.append(addr*ledPerSegment + i)
-            numAddr[name] = listAddr
+            self.numAddr[name] = listAddr
         
         # calc addr for each dot LED
-        global dotAddr
-        dotAddr = []
+        self.dotAddr = []
         for i in range((numDisplay-1)//2):
             for led in range(2*ledPerDot):
-                dotAddr.append(addrOfset+(14*ledPerSegment)+led + i * ledPerSegment * 24)
+                self.dotAddr.append(addrOfset+(14*ledPerSegment)+led + i * ledPerSegment * 24)
         
-        global np
-        np = neopixel.NeoPixel(machine.Pin(pin), ledCnt+1)
+        self.np = neopixel.NeoPixel(machine.Pin(pin), self.ledCnt+1)
         # Init all leds OFF (R=0, G=0, B=0)
-        for i in range(ledCnt):
-            np[i] = (0, 0, 0)
-        np.write()
+        for i in range(self.ledCnt):
+            self.np[i] = (0, 0, 0)
+        self.np.write()
 
 
     def setDots(self, display, dotColor=(0, 0, 100)):
@@ -132,13 +127,13 @@ class Segments:
         :param dotColor: color of the dots (R, G, B)
         :return: returns nothing
         """ 
-        for addr in dotAddr:
+        for addr in self.dotAddr:
             if display == True:
-                np[addr] = dotColor
-                np.write()
+                self.np[addr] = dotColor
+                self.np.write()
             else:
-                np[addr] = (0, 0, 0)
-                np.write()
+                self.np[addr] = (0, 0, 0)
+                self.np.write()
     
     def setSegment(self, num, value, color=(0, 0, 100)):
         """
@@ -150,23 +145,23 @@ class Segments:
         :return: returns nothing
         """ 
         if value == None:
-            for i in range(7*LedPerSegment):
-                np[segStart[num]+i] = (0, 0, 0)
-            np.write()
+            for i in range(7*self.LedPerSegment):
+                self.np[self.segStart[num]+i] = (0, 0, 0)
+            self.np.write()
         
         else:
             if isinstance(value, int):
-                str(value)
-            if value in numAddr:
+                value = str(value)
+            if value in self.numAddr:
 
-                for i in range(7*LedPerSegment):
-                    np[segStart[num]+i] = (0, 0, 0)
+                for i in range(7*self.LedPerSegment):
+                    self.np[self.segStart[num]+i] = (0, 0, 0)
 
                 color = tuple([int(i / 2.55) for i in color])
 
-                for addr in numAddr[value]:
-                    np[addr + segStart[num]] = color
-                np.write()
+                for addr in self.numAddr[value]:
+                    self.np[addr + self.segStart[num]] = color
+                self.np.write()
             else:
                 print("[Segment] invalid Value. Cannot display " + value)
 
