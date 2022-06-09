@@ -1,4 +1,4 @@
-# WS2812 7-Segment Display
+# WS2812 7-Segment Display V 1.1.0
 <b>Library to create a 7-Segment Display using WS2811b addressable LEDs
 
 Developed and tested on MicroPython ( ESP8266 and ESP32 TTGO) </b>
@@ -6,7 +6,18 @@ Developed and tested on MicroPython ( ESP8266 and ESP32 TTGO) </b>
 
 For bugs and ideas of improvement feel free to open an issue!
 
-## Version 1.0.0
+---
+## Changelog:
+
+### Version 1.1.0:
+
+- It is now pissible to create multiple instances of the Segment Display on different pins of the controller
+- (minor bugfixes)
+
+### Version 1.0.0
+
+- Initial publish
+
 ---
 
 ## Dependant libraries:
@@ -40,6 +51,8 @@ display = segments.Segments(NP_PIN, addrOfset=0, ledPerSegment=3, ledPerDot=1, n
 `ledPerDot [int]` is the count of LEDs in a single Dot (default is 1 LED per dot)
 
 `numDisplay [int]` is the count of single digit 7-segment-displays available for use (default is 4 displays)
+
+
 
 ## 2. Set the display to show your data
 
